@@ -16,8 +16,18 @@
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-black">DevStagram</h1>
             <nav class="flex gap-2 items-center">
-                <a class="font-bold uppercase text-gray-600 text-sm" href="#">login</a>
-                <a class="font-bold uppercase text-gray-600 text-sm" href="/crear-cuenta">Crear Cuenta</a>
+                @auth
+                    <a class="font-bold text-gray-600 text-sm" href="#">Hola: <span class="font-normal">{{ auth()->user()->username }}</span></a>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="font-bold uppercase text-gray-600 text-sm">Cerrar Sesión</button>
+                    </form>
+                @endauth
+
+                @guest
+                    <a class="font-bold uppercase text-gray-600 text-sm" href="{{ route('login') }}">Login</a>
+                    <a class="font-bold uppercase text-gray-600 text-sm" href="{{ route('register') }}">Crear Cuenta</a>
+                @endguest
             </nav>
         </div>
     </header>
